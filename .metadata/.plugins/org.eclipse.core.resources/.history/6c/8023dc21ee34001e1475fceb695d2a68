@@ -1,0 +1,5 @@
+package com.jsp.hinernatebasic.genration;
+
+public class User {
+
+}

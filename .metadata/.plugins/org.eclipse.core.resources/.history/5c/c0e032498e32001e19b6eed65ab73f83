@@ -1,0 +1,35 @@
+package edu.myjdbc;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+public class CRUD {
+
+	public static void main(String[] args) {
+
+		String url="jdbc:postgresql://localhost:5432/person";
+		String user="postgres";
+		String password="root";
+		try {
+			//step1
+			Class.forName("org.postgresql.Driver");
+			//step 2
+			Connection connection=DriverManager.getConnection(url,user,password);
+			
+			String sql="insert into person values(3,'raju','raju@gmail.com',87894522222);";
+			//step 3
+		  Statement createStatement = connection.createStatement();
+		  //step 4
+		  createStatement.execute(sql);
+			
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+}

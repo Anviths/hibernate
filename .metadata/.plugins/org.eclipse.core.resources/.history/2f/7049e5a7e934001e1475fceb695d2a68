@@ -1,0 +1,32 @@
+package edu.ty.caching;
+
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityTransaction;
+import javax.persistence.Persistence;
+
+public class DoctorTest {
+
+	public static void main(String[] args) {
+
+//		
+		
+		EntityManagerFactory entityManagerFactory=Persistence.createEntityManagerFactory("vikas");
+		EntityManager entityManager=entityManagerFactory.createEntityManager();
+		EntityTransaction entityTransaction=entityManager.getTransaction();
+		entityTransaction.begin();
+		Doctor doctor=entityManager.find(Doctor.class, 1);
+		System.out.println(doctor);
+		entityTransaction.commit();
+		Doctor doctor2=entityManager.find(Doctor.class, 1);
+		System.out.println(doctor2);
+		
+		EntityManagerFactory entityManagerFactory1=Persistence.createEntityManagerFactory("vikas");
+		EntityManager entityManager1=entityManagerFactory1.createEntityManager();
+		EntityTransaction entityTransaction1=entityManager1.getTransaction();
+		Doctor doctor1=entityManager1.find(Doctor.class, 1);
+		System.out.println(doctor1);
+		
+	}
+
+}

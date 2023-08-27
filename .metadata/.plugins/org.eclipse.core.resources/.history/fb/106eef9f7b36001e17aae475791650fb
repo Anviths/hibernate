@@ -1,0 +1,116 @@
+package edu.ty.foodapp.user.model;
+
+import java.util.List;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
+
+import edu.ty.foodapp.branch.model.Branch;
+import edu.ty.foodapp.foodorder.model.FoodOrder;
+import edu.ty.foodapp.menu.model.Menu;
+
+@Entity
+@Table(name = "user_foodapp")
+public class User {
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO, generator = "user_id")
+	@SequenceGenerator(name = "user_id", initialValue = 1, allocationSize = 1)
+	private long id;
+	private String name;
+	@Column(unique = true)
+	private String email;
+	private String password;
+
+	@Enumerated(EnumType.STRING)
+	private UserRole role;
+
+	@OneToOne(mappedBy = "user")
+	@Cascade(CascadeType.ALL)
+	private Menu menu;
+
+	@Cascade(CascadeType.ALL)
+	@OneToMany(mappedBy = "user")
+	private List<Branch> branchs;
+
+	@Cascade(CascadeType.ALL)
+	@OneToMany(mappedBy = "user")
+	private List<FoodOrder> foodOrders;
+
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public UserRole getRole() {
+		return role;
+	}
+
+	public void setRole(UserRole role) {
+		this.role = role;
+	}
+
+	public Menu getMenu() {
+		return menu;
+	}
+
+	public void setMenu(Menu menu) {
+		this.menu = menu;
+	}
+
+	public List<Branch> getBranchs() {
+		return branchs;
+	}
+
+	public void setBranchs(List<Branch> branch) {
+		this.branchs = branch;
+	}
+
+	public List<FoodOrder> getFoodOrders() {
+		return foodOrders;
+	}
+
+	public void setFoodOrders(List<FoodOrder> foodOrders) {
+		this.foodOrders = foodOrders;
+	}
+
+}

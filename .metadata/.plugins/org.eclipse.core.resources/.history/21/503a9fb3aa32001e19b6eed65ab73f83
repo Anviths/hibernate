@@ -1,0 +1,5 @@
+package edu.ty.manytomany.bi;
+
+public class DAO {
+
+}

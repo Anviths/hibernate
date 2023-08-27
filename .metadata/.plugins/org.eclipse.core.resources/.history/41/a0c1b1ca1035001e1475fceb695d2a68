@@ -1,0 +1,126 @@
+package edu.ty.foodapp.view;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityTransaction;
+import javax.persistence.Persistence;
+
+import edu.ty.foodapp.branch.model.Branch;
+import edu.ty.foodapp.foodorder.model.FoodOrder;
+import edu.ty.foodapp.foodproduct.model.FoodProduct;
+import edu.ty.foodapp.foodproduct.model.FoodType;
+import edu.ty.foodapp.item.model.Item;
+import edu.ty.foodapp.menu.model.Menu;
+import edu.ty.foodapp.user.model.User;
+
+public class Test {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+		EntityManagerFactory entityManagerFactory=Persistence.createEntityManagerFactory("vikas");
+		EntityManager entityManager=entityManagerFactory.createEntityManager();
+		EntityTransaction entityTransaction=entityManager.getTransaction();
+		
+		User user =new User();
+		user.setName("john");
+		user.setEmail("john@gmail.com");
+		user.setPassword("1234");
+		//menu one to one
+		Menu menu=new Menu();
+		//list of food product
+		List<FoodProduct> foodProducts=new ArrayList<FoodProduct>();
+		FoodProduct foodProduct=new FoodProduct();
+		//firstproduct
+		foodProduct.setName("butter chicken");
+		foodProduct.setType(FoodType.NONVEG);
+		foodProduct.setAbout("chicken food");
+		foodProduct.setAvaliability(true);
+		foodProduct.setPrice(300);
+		foodProduct.setMenu(menu);
+		//2nd product
+		FoodProduct foodProduct1=new FoodProduct();
+		foodProduct1.setName("briyani");
+		foodProduct1.setType(FoodType.NONVEG);
+		foodProduct1.setAbout("good food");
+		foodProduct1.setAvaliability(false);
+		foodProduct1.setPrice(250);
+		foodProduct1.setMenu(menu);
+		//adding product to list
+		foodProducts.add(foodProduct1);
+		foodProducts.add(foodProduct);
+		//setting food products to menu
+		menu.setFoodProducts(foodProducts);
+		//setting user to menu one to one bi directional
+		menu.setUser(user);
+		user.setMenu(menu);
+		
+		//user list of branch
+		List<Branch> branchs=new ArrayList<Branch>();
+		//branch1
+		Branch branch1=new Branch();
+		branch1.setName("btr");
+		branch1.setEmail("btr@gmail.com");
+		branch1.setPhoneNumber("87952");
+		branch1.setAddress("btr 2nd ");
+		branch1.setUser(user);
+		//2nd branch
+		Branch branch2=new Branch();
+		branch2.setName("btr");
+		branch2.setEmail("btr@gmail.com");
+		branch2.setPhoneNumber("87952");
+		branch2.setAddress("btr 2nd ");
+		branch2.setUser(user);
+		//add branch to list
+		branchs.add(branch2);
+		branchs.add(branch1);
+		//add user a list of branch
+		user.setBranchs(branchs);
+		
+		//set List foodOrders
+		List<FoodOrder> foodOrders=new ArrayList<FoodOrder>();
+		//create 1 food order
+		FoodOrder foodOrder=new FoodOrder();
+		foodOrder.setStatus("pending");
+		foodOrder.setTotalPrice(2500);
+		foodOrder.setCustomerName("raju");
+		foodOrder.setContactNumber("875156455");
+		foodOrder.setUser(user);
+		//food order has one to many to item
+		List<Item > items=new ArrayList<Item>();
+		//1 st item
+		Item item=new Item();
+		item.setProductId(101);
+		item.setName("chicken");
+		item.setType("main");
+		item.setQuantity(2);
+		item.setPrice(400);
+		item.setFoodOrder(foodOrder);
+		//2 st item
+		Item item2=new Item();
+		item2.setProductId(101);
+		item2.setName("chicken");
+		item2.setType("main");
+		item2.setQuantity(2);
+		item2.setPrice(400);
+		item2.setFoodOrder(foodOrder);
+		//adding food item to arrayList
+		items.add(item2);
+		items.add(item);
+		//2nd food order
+		FoodOrder foodOrder2=new FoodOrder();
+		foodOrder2.setStatus("payment sucessful");
+		foodOrder.setTotalPrice(200);
+		foodOrder.setCustomerName("divay");
+		foodOrder.setContactNumber("878056455");
+		foodOrder.setUser(user);
+		
+		
+
+	
+	}
+
+}

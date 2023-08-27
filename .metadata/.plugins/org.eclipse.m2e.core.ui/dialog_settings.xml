@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<section name="MavenProjectWizardLocationPage">
+		<list key="location">
+			<item value="D:\testyanta\hibernate\StudentApplication\src\main\java\edu\ty\Subject\controller\DAO.java"/>
+			<item value="D:\testyanta\hibernate\Person\pom.xml"/>
+			<item value="D:\testyanta\hibernate\One_To_Many\src\main\java\edu\ty\one_to_many\TestFind.java"/>
+			<item value="D:\testyanta\hibernate\Studentapp\src\main\resources\META-INF\persistence.xml"/>
+			<item value="D:\testyanta\hibernate\hinernatebasic\pom.xml"/>
+		</list>
+		<list key="projectNameTemplate">
+			<item value="[artifactId]"/>
+			<item value="[artifactId]-TRUNK"/>
+			<item value="[artifactId]-[version]"/>
+			<item value="[groupId].[artifactId]"/>
+			<item value="[groupId].[artifactId]-[version]"/>
+			<item value="[name]"/>
+		</list>
+	</section>
+	<section name="MavenProjectWizardArchetypePage">
+		<item key="catalog" value="All Catalogs"/>
+		<list key="projectNameTemplate">
+			<item value="[artifactId]"/>
+			<item value="[artifactId]-TRUNK"/>
+			<item value="[artifactId]-[version]"/>
+			<item value="[groupId].[artifactId]"/>
+			<item value="[groupId].[artifactId]-[version]"/>
+			<item value="[name]"/>
+		</list>
+	</section>
+	<section name="Maven2ProjectWizardArchifactPage">
+		<list key="package">
+		</list>
+		<list key="groupId">
+		</list>
+		<list key="artifactId">
+		</list>
+		<list key="projectNameTemplate">
+			<item value="[artifactId]"/>
+			<item value="[artifactId]-TRUNK"/>
+			<item value="[artifactId]-[version]"/>
+			<item value="[groupId].[artifactId]"/>
+			<item value="[groupId].[artifactId]-[version]"/>
+			<item value="[name]"/>
+		</list>
+		<list key="version">
+			<item value="0.0.1-SNAPSHOT"/>
+		</list>
+	</section>
+	<section name="MavenProjectWizardArtifactPage">
+		<list key="groupId">
+			<item value="edu.ty.caching"/>
+			<item value="edu.ty.user.foodapp"/>
+			<item value="edu.ty.person.adhar"/>
+			<item value="edu.ty.onetoonebi"/>
+			<item value="edu.ty.book"/>
+			<item value="edu.ty.studentapplication"/>
+			<item value="edu.ty.company"/>
+			<item value="edu.ty.manytoone"/>
+			<item value="edu.ty.person"/>
+			<item value="edu.ty.mapping"/>
+			<item value="edu.ty.carapp"/>
+			<item value="edu.ty.studentapp"/>
+			<item value="edu.jsp.hibernate"/>
+		</list>
+		<list key="name">
+		</list>
+		<list key="artifactId">
+			<item value="LevelOneCaching"/>
+			<item value="FoodApp"/>
+			<item value="Aadhar"/>
+			<item value="OneToOneBi"/>
+			<item value="Book"/>
+			<item value="StudentApplication"/>
+			<item value="Company"/>
+			<item value="One_To_Many"/>
+			<item value="Person"/>
+			<item value="Mapping"/>
+			<item value="CarApp"/>
+			<item value="Studentapp"/>
+			<item value="hinernatebasic"/>
+		</list>
+		<list key="projectNameTemplate">
+			<item value="[artifactId]"/>
+			<item value="[artifactId]-TRUNK"/>
+			<item value="[artifactId]-[version]"/>
+			<item value="[groupId].[artifactId]"/>
+			<item value="[groupId].[artifactId]-[version]"/>
+			<item value="[name]"/>
+		</list>
+		<list key="version">
+			<item value="0.0.1-SNAPSHOT"/>
+		</list>
+	</section>
+	<section name="org.eclipse.m2e.core.pom.overview">
+	</section>
+	<section name="org.eclipse.m2e.core.pom.dependencies">
+	</section>
+</section>

@@ -1,0 +1,58 @@
+package edu.ty.foodapp.menu.model;
+
+import java.util.List;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.SequenceGenerator;
+
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
+
+import edu.ty.foodapp.foodproduct.model.FoodProduct;
+import edu.ty.foodapp.user.model.User;
+
+@Entity
+public class Menu {
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO,generator = "menu_id")
+	@SequenceGenerator(name = "menu_id",initialValue = 5000,allocationSize = 1)
+
+	private int id;
+	@OneToMany(mappedBy = "menu")
+	@Cascade(CascadeType.ALL)
+	private List<FoodProduct> foodProducts;
+
+	@OneToOne
+	@JoinColumn(name = "BranchManager")
+	private User user;
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public List<FoodProduct> getFoodProducts() {
+		return foodProducts;
+	}
+	
+	public void setFoodProducts(List<FoodProduct> foodProducts) {
+		this.foodProducts = foodProducts;
+	}
+}

@@ -1,0 +1,26 @@
+package com.jsp.hinernatebasic.genration;
+
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityTransaction;
+import javax.persistence.Persistence;
+
+public class TsetAutoGeneration {
+
+	public static void main(String[] args) {
+
+		EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("vikas");
+		EntityManager entityManager = entityManagerFactory.createEntityManager();
+		EntityTransaction entityTransaction = entityManager.getTransaction();
+		
+		Employee student=new Employee();
+		student.setName("akshay");
+		student.setEmail("akshay@gmail.com");
+		student.setPhone("78945625225");
+		
+		entityTransaction.begin();
+		entityManager.persist(student);
+		entityTransaction.commit();
+	}
+
+}

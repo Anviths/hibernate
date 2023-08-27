@@ -1,0 +1,119 @@
+package edu.ty.foodapp.foodorder.model;
+
+import java.time.LocalDateTime;
+import java.util.List;
+
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
+
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
+import org.hibernate.annotations.CreationTimestamp;
+
+import edu.ty.foodapp.item.model.Item;
+import edu.ty.foodapp.user.model.User;
+
+@Entity
+public class FoodOrder {
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO, generator = "food_orderId")
+	@SequenceGenerator(name = "food_orderId", initialValue = 3000, allocationSize = 1)
+	private int id;
+	private String status;
+	private double totalPrice;
+	@CreationTimestamp
+	private LocalDateTime TimorderCreatedTime;
+	@Enumerated(EnumType.STRING)
+	private OrderTime orderDeliveryTime;
+	private String customerName;
+	private String contactNumber;
+	@Cascade(CascadeType.ALL)
+	@OneToMany(mappedBy = "foodOrder")
+	private List<Item> items;
+	@ManyToOne
+	@JoinColumn(name = "Staff")
+	private User user;
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	public double getTotalPrice() {
+		return totalPrice;
+	}
+
+	public void setTotalPrice(double totalPrice) {
+		this.totalPrice = totalPrice;
+	}
+
+	
+
+	public LocalDateTime getTimorderCreatedTime() {
+		return TimorderCreatedTime;
+	}
+
+	public void setTimorderCreatedTime(LocalDateTime timorderCreatedTime) {
+		TimorderCreatedTime = timorderCreatedTime;
+	}
+
+	public OrderTime getOrderDeliveryTime() {
+		return orderDeliveryTime;
+	}
+
+	public void setOrderDeliveryTime(OrderTime orderDeliveryTime) {
+		this.orderDeliveryTime = orderDeliveryTime;
+	}
+
+	public String getCustomerName() {
+		return customerName;
+	}
+
+	public void setCustomerName(String customerName) {
+		this.customerName = customerName;
+	}
+
+	public String getContactNumber() {
+		return contactNumber;
+	}
+
+	public void setContactNumber(String contactNumber) {
+		this.contactNumber = contactNumber;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public List<Item> getItems() {
+		return items;
+	}
+
+	public void setItems(List<Item> items) {
+		this.items = items;
+	}
+}

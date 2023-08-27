@@ -1,0 +1,23 @@
+package edu.ty.foodapp.view;
+
+import edu.ty.foodapp.controller.DAO;
+
+public class View {
+
+	public static void main(String[] args) {
+		DAO dao=new DAO();
+		System.out.println("welcome to food app");
+		System.out.println("1.insert user");
+		System.out.println("2.find user");
+		System.out.println("3.update food price");
+		System.out.println("4.delete user");
+		System.out.println("5.exit");
+		
+		System.out.println("enter the choice");
+		dao.
+		dao.insertUser();
+//		dao.userFindById(2);
+//		dao.updatefoodProductPriceByUserId(1, 199);
+//		dao.deleteUser(1);
+	}
+}

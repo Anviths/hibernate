@@ -1,0 +1,285 @@
+package edu.ty.foodapp.controller;
+
+import java.sql.Time;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityTransaction;
+import javax.persistence.Persistence;
+
+import edu.ty.foodapp.branch.model.Branch;
+import edu.ty.foodapp.foodorder.model.FoodOrder;
+import edu.ty.foodapp.foodproduct.model.FoodProduct;
+import edu.ty.foodapp.foodproduct.model.FoodType;
+import edu.ty.foodapp.item.model.Item;
+import edu.ty.foodapp.menu.model.Menu;
+import edu.ty.foodapp.user.model.User;
+import edu.ty.foodapp.user.model.UserRole;
+
+public class DAO {
+
+	EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("vikas");
+	EntityManager entityManager = entityManagerFactory.createEntityManager();
+	EntityTransaction entityTransaction = entityManager.getTransaction();
+
+	public void insertUser() {
+		entityTransaction.begin();
+		createUser();
+		entityTransaction.commit();
+//		Menu menu=user.getMenu();
+//		
+//		List<FoodProduct> foodProducts=menu.getFoodProducts();
+//		for (FoodProduct foodProduct : foodProducts) {
+//			entityManager.persist(foodProduct);
+//		}
+//		entityManager.persist(menu);
+//		List<Branch> branchs = user.getBranchs();
+//		for (Branch branch : branchs) {
+//			entityManager.persist(branch);
+//		}
+//		List<FoodOrder> foodOrders = user.getFoodOrders();
+//		for (FoodOrder foodOrder : foodOrders) {
+//			List<Item> items = foodOrder.getItems();
+//			for (Item item : items) {
+//				entityManager.persist(item);
+//			}
+//			entityManager.persist(foodOrder);
+//			
+//		}
+
+	}
+
+	Scanner scanner = new Scanner(System.in);
+
+	public User createUser() {
+		User user = new User();
+		System.out.println("enter the user name");
+//		scanner.nextLine();
+		user.setName(scanner.nextLine());
+		System.out.println("Enter the user email");
+		user.setEmail(scanner.next().toLowerCase());
+		System.out.println("enter the password");
+		user.setPassword(scanner.next());
+		System.out.println("choose the role \n1.admin \n2.branchManager \n3.staff");
+		int choice = scanner.nextInt();
+	
+		switch (choice) {
+		case 1:
+			user.setRole(UserRole.ADMIN);
+			break;
+		case 2:
+			user.setRole(UserRole.BRANCHMANAGER);
+			break;
+		case 3:
+			user.setRole(UserRole.STAFF);
+			break;
+		default:
+			user.setRole(UserRole.STAFF);
+		}
+       
+		// menu
+		if(user.getRole()==UserRole.ADMIN) {
+		Menu menu = createMenu();
+		menu.setUser(user);
+		user.setMenu(menu);
+		}
+		// branches
+		System.out.println("enter number of branches");
+		int numberOfBranches = scanner.nextInt();
+		List<Branch> branchs = new ArrayList<Branch>();
+		for (int i = 0; i < numberOfBranches; i++) {
+			Branch branch = createBranch();
+			branch.setUser(user);
+			branchs.add(branch);
+		}
+		user.setBranchs(branchs);
+		// Food order
+		System.out.println("enter number of foodorder");
+		int numberOfFoodOrder = scanner.nextInt();
+		List<FoodOrder> foodOrders = new ArrayList<FoodOrder>();
+		for (int i = 0; i < numberOfFoodOrder; i++) {
+			FoodOrder foodOrder = createFoodOrder();
+			foodOrder.setUser(user);
+			foodOrders.add(foodOrder);
+		}
+		user.setFoodOrders(foodOrders);
+		entityManager.persist(user);
+		return user;
+	}
+	/*
+	 * food order creation
+	 */
+
+	public FoodOrder createFoodOrder() {
+		FoodOrder foodOrder = new FoodOrder();
+		System.out.println("enter order status");
+		foodOrder.setStatus(scanner.next());
+		System.out.println("enter the price");
+		foodOrder.setTotalPrice(scanner.nextDouble());
+		System.out.println("enter customer name");
+		scanner.nextLine();
+		foodOrder.setCustomerName(scanner.nextLine());
+		System.out.println("enter the customer number");
+		foodOrder.setContactNumber(scanner.next());
+		System.out.println("enter the food order delivery time in HH:MM:SS");
+		foodOrder.setOrderDeliveryTime(Time.valueOf(scanner.next()));
+		System.out.println("enter number of items");
+		int numberOfItems = scanner.nextInt();
+		List<Item> items = new ArrayList<Item>();
+		for (int i = 0; i < numberOfItems; i++) {
+			Item item = createItem();
+			item.setFoodOrder(foodOrder);
+			items.add(item);
+		}
+		// return the list of orders to user
+		foodOrder.setItems(items);
+//		entityManager.persist(foodOrder);
+		return foodOrder;
+	}
+	/*
+	 * branch creation
+	 */
+
+	public Branch createBranch() {
+		// creating the branch
+		Branch branch = new Branch();
+		System.out.println("enter the branch name");
+		scanner.nextLine();
+		branch.setName(scanner.nextLine());
+		System.out.println("enter the branch address");
+		branch.setAddress(scanner.nextLine());
+		System.out.println("enter the branch phone number");
+		branch.setPhoneNumber(scanner.next());
+		System.out.println("enter the branch email");
+		branch.setEmail(scanner.next());
+//		entityManager.persist(branch);
+		return branch;
+	}
+
+	/*
+	 * create the menu and return to caller
+	 */
+	public Menu createMenu() {
+		Menu menu = new Menu();
+		System.out.println("enter number of food product");
+		int n = scanner.nextInt();
+		List<FoodProduct> foodProducts = new ArrayList<FoodProduct>();
+
+		for (int i = 0; i < n; i++) {
+			FoodProduct foodProduct = createFoodProduct();
+			foodProduct.setMenu(menu);
+			foodProducts.add(foodProduct);
+		}
+		menu.setFoodProducts(foodProducts);
+//		entityManager.persist(menu);
+		return menu;
+	}
+	/*
+	 * food product
+	 */
+
+	public FoodProduct createFoodProduct() {
+		FoodProduct foodProduct = new FoodProduct();
+		System.out.println("enter the food name ");
+		scanner.nextLine();
+		foodProduct.setName(scanner.nextLine());
+		System.out.println("enter the food type \n1.VEG \n2.NONVEG");
+		int choice = scanner.nextInt();
+		switch (choice) {
+		case 1:
+			foodProduct.setType(FoodType.VEG);
+			break;
+		case 2:
+			foodProduct.setType(FoodType.NONVEG);
+			break;
+		default:
+			foodProduct.setType(FoodType.NONVEG);
+		}
+		System.out.println("enter about food");
+		scanner.nextLine();
+		foodProduct.setAbout(scanner.nextLine());
+		System.out.println("choose availblity \n1.Available or \n2.Not-availabile");
+		int key = scanner.nextInt();
+		switch (key) {
+		case 1:
+			foodProduct.setAvaliability(true);
+			break;
+
+		default:
+			foodProduct.setAvaliability(false);
+
+		}
+		System.out.println("enter the price");
+		foodProduct.setPrice(scanner.nextDouble());
+//		entityManager.persist(foodProduct);
+		return foodProduct;
+	}
+	/*
+	 * item creation
+	 */
+
+	public Item createItem() {
+		Item item = new Item();
+
+		System.out.println("enter product id");
+		item.setProductId(scanner.nextInt());
+		System.out.println("enter product name");
+		scanner.nextLine();
+		item.setName(scanner.nextLine());
+		System.out.println("enter product type ");
+		item.setType(scanner.nextLine());
+		System.out.println("enter the quantity");
+		item.setQuantity(scanner.nextDouble());
+		System.out.println("enter the price");
+		item.setPrice(scanner.nextDouble());
+//		entityManager.persist(item);
+		return item;
+	}
+
+	public void userFindById(int id) {
+		User user = entityManager.find(User.class, id);
+		System.out.println("user id " + user.getId());
+		System.out.println("user name " + user.getName());
+		System.out.println("user email " + user.getEmail());
+		List<Branch> branchs = user.getBranchs();
+		for (Branch branch : branchs) {
+			System.out.println("branch name " + branch.getName());
+			System.out.println("branch phone " + branch.getPhoneNumber());
+		}
+		Menu menu = user.getMenu();
+		List<FoodProduct> foodProducts = menu.getFoodProducts();
+		for (FoodProduct foodProduct : foodProducts) {
+			System.out.println("food name " + foodProduct.getName());
+			System.out.println("food price " + foodProduct.getPrice());
+		}
+
+	}
+
+	public void updatefoodProductPriceByUserId(int id, double price) {
+		User user = entityManager.find(User.class, id);
+		if (user != null) {
+			Menu menu = user.getMenu();
+			List<FoodProduct> foodProducts = menu.getFoodProducts();
+			for (FoodProduct foodProduct : foodProducts) {
+				if (foodProduct.getName().equalsIgnoreCase("burger")) {
+					foodProduct.setPrice(price);
+					entityTransaction.begin();
+					entityManager.merge(foodProduct);
+					entityTransaction.commit();
+				}
+			}
+		}
+	}
+
+	public void deleteUser(int id) {
+		User user = entityManager.find(User.class, id);
+		if (user != null) {
+			entityTransaction.begin();
+			entityManager.remove(user);
+			entityTransaction.commit();
+		}
+	}
+}

@@ -1,0 +1,50 @@
+package edu.ty.manytomany.uni;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityTransaction;
+import javax.persistence.Persistence;
+
+public class TestSave {
+
+	public static void main(String[] args) {
+
+		EntityManagerFactory entityManagerFactory=Persistence.createEntityManagerFactory("vikas");
+		EntityManager entityManager=entityManagerFactory.createEntityManager();
+		EntityTransaction entityTransaction=entityManager.getTransaction();
+		
+		Student student=new Student();
+		student.setId(1);
+		student.setName("mithun");
+		student.setEmail("mithun@gmail.com");
+		
+		
+		Subject subject1=new Subject();
+		subject1.setId(107);
+		subject1.setName("mongodb");
+		subject1.setDays(90);
+		
+		Subject subject2=entityManager.find(Subject.class, 103);
+
+		
+		
+		Subject subject3=entityManager.find(Subject.class, 102);
+		
+		
+		List<Subject> subjects = new ArrayList();
+		subjects.add(subject1);
+		subjects.add(subject2);
+		subjects.add(subject3);
+		student.setSubjects(subjects);
+		
+		entityTransaction.begin();
+		entityManager.persist(subject1);
+		entityManager.persist(student);
+		entityTransaction.commit();
+	}
+
+}

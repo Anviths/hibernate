@@ -1,0 +1,158 @@
+package edu.ty.foodapp.view;
+
+import java.sql.Time;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+
+import edu.ty.foodapp.branch.model.Branch;
+import edu.ty.foodapp.controller.DAO;
+import edu.ty.foodapp.foodorder.model.FoodOrder;
+import edu.ty.foodapp.foodproduct.model.FoodProduct;
+import edu.ty.foodapp.foodproduct.model.FoodType;
+import edu.ty.foodapp.item.model.Item;
+import edu.ty.foodapp.menu.model.Menu;
+import edu.ty.foodapp.user.model.User;
+
+public class View {
+
+	Scanner scanner = new Scanner(System.in);
+
+	
+	
+
+	public User createUser() {
+		User user = new User();
+		System.out.println("enter the user name");
+		scanner.nextLine();
+		user.setName(scanner.nextLine());
+		System.out.println("Enter the user email");
+		user.setEmail(scanner.next().toLowerCase());
+		System.out.println("enter the password");
+		user.setPassword(scanner.next());
+		System.out.println("enter the role");
+		user.setRole(scanner.next());
+
+		user.setMenu(createMenu());
+		System.out.println("enter number of branches");
+		int numberOfBranches=scanner.nextInt();
+		List<Branch> branchs=new ArrayList<Branch>();
+		for(int i=0;i<numberOfBranches;i++) {
+			branchs.add(createBranch());
+		}
+		user.setBranchs(branchs);
+		System.out.println("enter number of foodorder");
+		int numberOfFoodOrder=scanner.nextInt();
+		List<FoodOrder> foodOrders = new ArrayList<FoodOrder>();
+		for(int i=0;i<numberOfFoodOrder;i++) {
+			foodOrders.add(createFoodOrder());
+		}
+		user.setFoodOrders(foodOrders);
+		return user;
+	}
+	/*
+	 * food order creation
+	 */
+
+	public FoodOrder createFoodOrder() {
+		FoodOrder foodOrder = new FoodOrder();
+		System.out.println("enter order status");
+		foodOrder.setStatus(scanner.next());
+		foodOrder.setTotalPrice(scanner.nextDouble());
+		foodOrder.setOrderDeliveryTime(Time.valueOf(scanner.next()));
+		System.out.println("enter customer name");
+		scanner.nextLine();
+		foodOrder.setCustomerName(scanner.nextLine());
+		System.out.println("enter the customer number");
+		foodOrder.setContactNumber(scanner.next());
+		// return the list of orders to user
+		return foodOrder;
+	}
+	/*
+	 * branch creation
+	 */
+
+	public Branch createBranch() {
+		// creating the branch
+		Branch branch = new Branch();
+		System.out.println("enter the branch name");
+		scanner.nextLine();
+		branch.setName(scanner.nextLine());
+		System.out.println("enter the branch address");
+		branch.setAddress(scanner.nextLine());
+		System.out.println("enter the branch phone number");
+		branch.setPhoneNumber(scanner.next());
+		System.out.println("enter the branch email");
+		branch.setEmail(scanner.next());
+		return branch;
+	}
+
+	/*
+	 * create the menu and return to caller
+	 */
+	public Menu createMenu() {
+		Menu menu=new Menu();
+		return menu;
+	}
+	/*
+	 * food product
+	 */
+
+	public FoodProduct createFoodProduct() {
+		FoodProduct foodProduct=new FoodProduct();
+		System.out.println("enter the food name ");
+		scanner.nextLine();
+		foodProduct.setName(scanner.nextLine());
+		System.out.println("enter the food type \n1.VEG \n2.NONVEG");
+		int choice=scanner.nextInt();
+		switch(choice) {
+		case 1:foodProduct.setType(FoodType.VEG);
+		break;
+		case 2:foodProduct.setType(FoodType.NONVEG);
+		break;
+		default:
+			foodProduct.setType(FoodType.NONVEG);
+		}
+		System.out.println("enter about food");
+		scanner.nextLine();
+		foodProduct.setAbout(scanner.nextLine());
+		System.out.println("enter availblity true or false");
+		foodProduct.setAvaliability(scanner.nextBoolean());
+		System.out.println("enter the price");
+		foodProduct.setPrice(scanner.nextDouble());
+		System.out.println("enter the menu id");
+		int menuId=scanner.nextInt();
+		
+		
+			Menu menu=createMenu();
+			
+		
+		foodProduct.setMenu(menu);
+		return foodProduct;
+	}
+	/*
+	 * item creation
+	 */
+	
+	public void createItem() {
+		Item item=new Item();
+		
+		System.out.println("enter product id");
+		item.setProductId(scanner.nextInt());
+		System.out.println("enter product name");
+		scanner.nextLine();
+		item.setName(scanner.nextLine());
+		System.out.println("enter product type ");
+		item.setType(scanner.nextLine());
+		System.out.println("enter the quantity");
+		item.setQuantity(scanner.nextDouble());
+		System.out.println("enter the price");
+		item.setPrice(scanner.nextDouble());
+		
+	}
+
+}

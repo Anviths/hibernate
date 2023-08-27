@@ -1,0 +1,59 @@
+package edu.ty.Customer.model;
+
+import java.util.List;
+
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+
+import edu.ty.product.model.Product;
+
+@Entity
+public class Customer {
+
+	@Id
+	private int id;
+	private String name;
+	private String email;
+	private String phone;
+	@OneToMany (mappedBy = "customer")
+	
+	private List<Product> products;
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	public String getPhone() {
+		return phone;
+	}
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+	public List<Product> getProducts() {
+		return products;
+	}
+	public void setProducts(List<Product> products) {
+		this.products = products;
+	}
+	@Override
+	public String toString() {
+		return "Customer [id=" + id + ", name=" + name + ", email=" + email + ", phone=" + phone + ", products="
+				+ products + "]";
+	}
+	
+	
+}

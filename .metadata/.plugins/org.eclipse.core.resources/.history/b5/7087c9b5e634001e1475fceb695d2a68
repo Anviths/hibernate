@@ -1,0 +1,5 @@
+package edu.ty.caching;
+
+public class Student {
+
+}

@@ -1,0 +1,11 @@
+package edu.ty.manytomany.bi;
+
+public class View {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+ DAO dao=new DAO();
+ dao.insertData();
+	}
+
+}

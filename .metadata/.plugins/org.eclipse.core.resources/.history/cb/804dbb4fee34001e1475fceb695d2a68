@@ -1,0 +1,18 @@
+package com.jsp.hinernatebasic.genration;
+
+import java.sql.Time;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+@Entity
+public class User {
+
+	@Id
+	private int id;
+	@Column(name="username")
+	private String name;
+	@Column(unique = true)
+	private String email;
+	private Time createdTime;
+}

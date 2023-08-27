@@ -1,0 +1,44 @@
+package edu.ty.manytomany.controller;
+
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityTransaction;
+import javax.persistence.Persistence;
+
+import edu.ty.manytomany.uni.Student;
+import edu.ty.manytomany.uni.Subject;
+
+public class TestInsert {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("vikas");
+		EntityManager entityManager = entityManagerFactory.createEntityManager();
+		EntityTransaction entityTransaction = entityManager.getTransaction();
+		Student student=new Student();
+		student.setId(1);
+		student.setName("anvith");
+		student.setEmail("anvith@gmsil.com");
+		student.setId(2);
+		student.setName("raju");
+		student.setEmail("raju@gmsil.com");
+		
+		Subject subject1=new Subject();
+		subject1.setId(101);
+		subject1.setName("html");
+		subject1.setDays(90);
+		
+		Subject subject2=new Subject();
+		subject2.setId(102);
+		subject2.setName("java");
+		subject2.setDays(90);
+		Subject subject3=new Subject();
+		subject3.setId(103);
+		subject3.setName("css");
+		subject3.setDays(90);
+		
+		
+		
+	}
+
+}

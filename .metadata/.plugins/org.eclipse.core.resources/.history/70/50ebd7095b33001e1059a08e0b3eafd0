@@ -1,0 +1,68 @@
+package edu.ty.manytomany.controller;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityTransaction;
+import javax.persistence.Persistence;
+
+import edu.ty.manytomany.uni.Student;
+import edu.ty.manytomany.uni.Subject;
+
+public class TestInsert {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("vikas");
+		EntityManager entityManager = entityManagerFactory.createEntityManager();
+		EntityTransaction entityTransaction = entityManager.getTransaction();
+		Student student1=new Student();
+		student1.setId(2);
+		student1.setName("akshay");
+		student1.setEmail("akshay@gmsil.com");
+		Student student2=new Student();
+		student2.setId(3);
+		student2.setName("raju");
+		student2.setEmail("raju@gmsil.com");
+		
+		Subject subject1=new Subject();
+		subject1.setId(104);
+		subject1.setName("phython");
+		subject1.setDays(90);
+		
+		Subject subject2=new Subject();
+		subject2.setId(105);
+		subject2.setName("hibenate");
+		subject2.setDays(90);
+		
+		Subject subject3=new Subject();
+		subject3.setId(106);
+		subject3.setName("js");
+		subject3.setDays(90);
+		
+//		List<Subject> subjects=new ArrayList<Subject>();
+//		subjects.add(subject1);
+//		subjects.add(subject2);
+//		subjects.add(subject3);
+		
+		student1.setSubjects(Arrays.asList(subject1,subject2,subject3));
+		subject1.setStudents(Arrays.asList(student1,student2));
+		student2.setSubjects(subjects);
+		
+		entityTransaction.begin();
+		entityManager.persist(student1);
+		entityManager.persist(student2);
+		entityManager.persist(subject1);
+		entityManager.persist(subject2);
+		entityManager.persist(subject3);
+		
+//		entityManager.persist(student2);
+		entityTransaction.commit();
+		
+		
+	}
+
+}

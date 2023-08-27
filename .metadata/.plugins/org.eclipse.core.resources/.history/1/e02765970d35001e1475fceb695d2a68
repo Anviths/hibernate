@@ -1,0 +1,16 @@
+package edu.ty.foodapp.view;
+
+import edu.ty.foodapp.controller.DAO;
+
+public class Test {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+
+		DAO dao =new DAO();
+		View view=new View();
+		dao.insertUser(view.createUser());
+	}
+
+}
